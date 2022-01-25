@@ -1,0 +1,7 @@
+node_modules/
+.env
+.env.prod
+note.txt
+update_server.sh
+update_dev.sh
+.vscode/

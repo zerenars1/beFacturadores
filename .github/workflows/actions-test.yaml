@@ -1,0 +1,52 @@
+name: test-deploy
+on:
+  push:
+    branches: [test]
+env:
+  REGISTRY: 'registry.digitalocean.com/redisa'
+  IMAGE_NAME: 'redisa_facturadores'
+  VERSION: 'test'
+jobs:
+  build_and_push:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push'
+    steps:
+      - name: Checkout master
+        uses: actions/checkout@v2
+
+      - name: Install doctl
+        uses: digitalocean/action-doctl@v2
+        with:
+          token: ${{ secrets.DO_ACCESS_TOKEN }}
+
+      - name: Log in to DigitalOcean Container Registry with short-lived credentials
+        run: doctl registry login --expiry-seconds 600
+
+      - name: Build container image
+        run: docker build -t $(echo $REGISTRY)/$(echo $IMAGE_NAME):$(echo $VERSION) .
+
+      - name: Tag to registry
+        run: docker tag $(echo $REGISTRY)/$(echo $IMAGE_NAME):$(echo $VERSION) $(echo $REGISTRY)/$(echo $IMAGE_NAME):$(echo $VERSION)
+
+      - name: Push image to DigitalOcean Container Registry
+        run: docker push $(echo $REGISTRY)/$(echo $IMAGE_NAME):$(echo $VERSION)
+
+      - name: Configure SSH
+        run: |
+          mkdir -p ~/.ssh/
+          echo "$SSH_KEY" > ~/.ssh/wepatestserver.key
+          chmod 600 ~/.ssh/wepatestserver.key
+          cat >>~/.ssh/config <<END
+          Host wepatestserver
+            HostName $SSH_HOST
+            User $SSH_USER
+            IdentityFile ~/.ssh/wepatestserver.key
+            StrictHostKeyChecking no
+          END
+        env:
+          SSH_USER: ${{ secrets.SSH_USER }}
+          SSH_KEY: ${{ secrets.SSH_KEY_TEST }}
+          SSH_HOST: ${{ secrets.SSH_HOST_TEST }}
+
+      - name: Update beFacturadoresTest
+        run: ssh wepatestserver 'sh /home/wepa/scripts/beFacturadoresTest-update.sh'

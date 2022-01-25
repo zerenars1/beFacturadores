@@ -1,0 +1,56 @@
+{
+  "name": "befacturadores",
+  "version": "1.0.0",
+  "description": "Backend de comunicacion con Facturadores",
+  "main": "server.js",
+  "dependencies": {
+    "axios": "^0.21.1",
+    "babel-eslint": "^10.1.0",
+    "bunyan": "^1.8.15",
+    "bunyan-morgan": "^1.0.1",
+    "bunyan-sql-stream": "0.0.4",
+    "cors": "^2.8.5",
+    "crypto": "^1.0.1",
+    "dotenv": "^8.2.0",
+    "eslint-config-airbnb": "^18.2.1",
+    "eslint-config-node": "^2.0.0",
+    "express": "^4.17.1",
+    "full-icu": "^1.3.1",
+    "http-errors": "^1.8.0",
+    "moment": "^2.29.1",
+    "morgan": "^1.10.0",
+    "pg": "^8.5.1",
+    "pg-hstore": "^2.3.3",
+    "phin": "^3.6.1",
+    "sequelize": "^6.5.0",
+    "uuid": "^8.3.2",
+    "xml2js": "^0.4.23",
+    "xml2json": "^0.12.0",
+    "xmlhttprequest": "^1.8.0"
+  },
+  "devDependencies": {
+    "eslint": "^7.19.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-config-prettier": "^7.2.0",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-prettier": "^3.3.1",
+    "nodemon": "^2.0.7",
+    "prettier": "^2.2.1",
+    "sequelize-auto": "^0.8.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon server.js",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ittidigital/beFacturadores.git"
+  },
+  "author": "Angatupyry https://github.com/angatupyry",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ittidigital/beFacturadores/issues"
+  },
+  "homepage": "https://github.com/ittidigital/beFacturadores#readme"
+}
