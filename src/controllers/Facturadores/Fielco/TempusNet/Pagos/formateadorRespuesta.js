@@ -25,6 +25,7 @@ async function formateadorRespuesta(respuesta, body, transaccion_id) {
       medio_pago: [{ id: efectivo.id, nombre: efectivo.nombre }],
       solicitar_factura: false,
     };
+
     
 
     const detalle = [];
